@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rojina Shane Habana — IT Graduate & Mobile Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#0A0C10',
+          panel: '#12151C',
+          panel2: '#171B24',
+          line: '#242938',
+          cyan: '#5EEAD4',
+          coral: '#FF7A5C',
+          mute: '#8B93A1',
+          fg: '#E8EAED'
+        },
+        fontFamily: {
+          display: ['"Space Grotesk"', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace']
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { background-color: #0A0C10; }
+
+  .frame { position: relative; }
+  .frame .corner {
+    position: absolute;
+    width: 18px; height: 18px;
+    border: 2px solid #5EEAD4;
+    opacity: 0.85;
+    transition: all .25s ease;
+  }
+  .frame .corner.tl { top: -1px; left: -1px; border-right: none; border-bottom: none; }
+  .frame .corner.tr { top: -1px; right: -1px; border-left: none; border-bottom: none; }
+  .frame .corner.bl { bottom: -1px; left: -1px; border-right: none; border-top: none; }
+  .frame .corner.br { bottom: -1px; right: -1px; border-left: none; border-top: none; }
+  .frame:hover .corner.tl, .frame:hover .corner.tr { transform: translateY(-3px); }
+  .frame:hover .corner.bl, .frame:hover .corner.br { transform: translateY(3px); }
+  .frame:hover .corner { border-color: #FF7A5C; }
+
+  @keyframes sweep {
+    0% { top: 6%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 92%; opacity: 0; }
+  }
+  .scanline {
+    position: absolute; left: 6%; right: 6%; height: 1px;
+    background: linear-gradient(90deg, transparent, #5EEAD4, transparent);
+    animation: sweep 3.6s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes blink { 50% { opacity: 0.25; } }
+  .rec-dot { animation: blink 1.6s step-start infinite; }
+
+  ::selection { background: #5EEAD4; color: #0A0C10; }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(94,234,212,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(94,234,212,0.06) 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .timeline-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: #0A0C10; border: 2px solid #5EEAD4;
+    flex-shrink: 0; margin-top: 6px;
+  }
+</style>
+</head>
+<body class="bg-ink text-fg font-body antialiased">
+
+<nav class="fixed top-0 w-full z-50 bg-ink/85 backdrop-blur-md border-b border-line">
+  <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-6">
+    <a href="#" class="font-display font-semibold text-lg tracking-tight shrink-0">
+      Shane<span class="text-cyan">/</span><span class="font-mono text-sm text-mute">dev</span>
+    </a>
+    <div class="hidden xl:flex items-center gap-8 text-xs font-medium text-mute font-mono tracking-wide">
+      <a href="#about" class="hover:text-cyan transition-colors whitespace-nowrap">01<span class="text-line mx-1">·</span>about</a>
+      <a href="#skills" class="hover:text-cyan transition-colors whitespace-nowrap">02<span class="text-line mx-1">·</span>skills</a>
+      <a href="#works" class="hover:text-cyan transition-colors whitespace-nowrap">03<span class="text-line mx-1">·</span>works</a>
+      <a href="#experience" class="hover:text-cyan transition-colors whitespace-nowrap">04<span class="text-line mx-1">·</span>experience</a>
+      <a href="#achievements" class="hover:text-cyan transition-colors whitespace-nowrap">05<span class="text-line mx-1">·</span>achievements</a>
+      <a href="#trainings" class="hover:text-cyan transition-colors whitespace-nowrap">06<span class="text-line mx-1">·</span>trainings</a>
+      <a href="#contact" class="hover:text-cyan transition-colors whitespace-nowrap">07<span class="text-line mx-1">·</span>contact</a>
+    </div>
+    <div class="flex items-center gap-3">
+      <a href="https://behind-the-desk.vercel.app/index.html" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center gap-1.5 text-sm font-mono font-medium text-mute hover:text-cyan transition-all">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        blog
+      </a>
+      <a href="#contact" class="border border-cyan/40 text-cyan hover:bg-cyan hover:text-ink text-sm font-mono font-medium px-4 py-2 rounded transition-all">
+        say_hello()
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section id="about" class="min-h-screen grid-bg flex items-center pt-24 pb-16 px-6">
+  <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-5 gap-12 items-center">
+
+    <div class="lg:col-span-3">
+      <div class="flex items-center gap-2 font-mono text-xs text-coral mb-6">
+        <span class="w-2 h-2 rounded-full bg-coral rec-dot"></span>
+        OPEN TO ENTRY-LEVEL IT ROLES
+      </div>
+      <h1 class="font-display text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05]">
+        Rojina Shane
+        <span class="text-cyan">Habana</span>
+      </h1>
+      <p class="mt-2 font-mono text-sm text-mute">BSIT Graduate · Web & Mobile Developer · IT Support</p>
+      <p class="mt-6 text-lg text-mute leading-relaxed max-w-xl">
+        Bachelor of Science in Information Technology graduate with hands-on experience in technical support, hardware and software troubleshooting, network connectivity, computer maintenance, and end-user assistance — gained through an internship with the Department of Education, Schools Division of Sorsogon City. Also experienced in secretariat and administrative support, detail-oriented, adaptable, and committed to reliable, efficient support in an entry-level IT role.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a href="#works" class="bg-cyan text-ink font-display font-semibold px-6 py-3 rounded-lg hover:bg-cyan/85 transition-all">
+          View Works
+        </a>
+        <a href="#contact" class="border border-line hover:border-mute text-fg font-medium px-6 py-3 rounded-lg transition-all">
+          Get in Touch
+        </a>
+        <a href="rojinashaneCV.pdf" download class="inline-flex items-center gap-2 border border-line hover:border-cyan text-fg font-medium px-6 py-3 rounded-lg transition-all">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+          Download CV
+        </a>
+      </div>
+      <div class="mt-12 flex flex-wrap gap-8 font-mono text-xs text-mute">
+        <div><span class="text-fg text-base font-display block">Magna Cum Laude</span>BSIT, 2026</div>
+        <div><span class="text-fg text-base font-display block">~500 hrs</span>IT & admin internship</div>
+        <div><span class="text-fg text-base font-display block">3</span>shipped projects</div>
+      </div>
+    </div>
+
+    <div class="lg:col-span-2 flex justify-center">
+      <div class="frame w-64 h-64 sm:w-72 sm:h-72 rounded-[2rem] border border-line p-3">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="relative w-full h-full bg-panel2 rounded-[1.5rem] overflow-hidden">
+          <img src="src/photos/shane.PNG" alt="Rojina Shane Habana" class="w-full h-full object-cover">
+          <div class="scanline"></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Skills -->
+<section id="skills" class="py-24 px-6 border-t border-line">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-display text-3xl font-semibold mb-12 flex items-center gap-3">
+      <span class="text-cyan font-mono text-lg">02</span> Skills
+    </h2>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="p-6 bg-panel rounded-xl border border-line">
+        <h3 class="font-display font-medium text-cyan mb-4 font-mono text-sm tracking-wide">WEB DEVELOPMENT</h3>
+        <ul class="space-y-2 text-mute text-sm">
+          <li>HTML5 & CSS3</li>
+          <li>Bootstrap 5</li>
+          <li>Tailwind CSS</li>
+        </ul>
+      </div>
+      <div class="p-6 bg-panel rounded-xl border border-line">
+        <h3 class="font-display font-medium text-cyan mb-4 font-mono text-sm tracking-wide">MOBILE DEVELOPMENT</h3>
+        <ul class="space-y-2 text-mute text-sm">
+          <li>React Native</li>
+          <li>Expo</li>
+        </ul>
+      </div>
+      <div class="p-6 bg-panel rounded-xl border border-line">
+        <h3 class="font-display font-medium text-cyan mb-4 font-mono text-sm tracking-wide">BACKEND & DATABASES</h3>
+        <ul class="space-y-2 text-mute text-sm">
+          <li>Firebase (Auth & Firestore)</li>
+          <li>MySQL</li>
+        </ul>
+      </div>
+      <div class="p-6 bg-panel rounded-xl border border-line">
+        <h3 class="font-display font-medium text-cyan mb-4 font-mono text-sm tracking-wide">TOOLS & PLATFORMS</h3>
+        <ul class="space-y-2 text-mute text-sm">
+          <li>VS Code & Git/GitHub</li>
+          <li>Figma & Draw.io</li>
+          <li>Canva & Vercel</li>
+        </ul>
+      </div>
+      <div class="p-6 bg-panel rounded-xl border border-line">
+        <h3 class="font-display font-medium text-cyan mb-4 font-mono text-sm tracking-wide">ADDITIONAL SKILLS</h3>
+        <ul class="space-y-2 text-mute text-sm">
+          <li>IT Support & Troubleshooting</li>
+          <li>Hardware & Network Maintenance</li>
+          <li>Admin & Secretariat Support</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Works -->
+<section id="works" class="py-24 px-6 border-t border-line bg-panel/30">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-display text-3xl font-semibold mb-2 flex items-center gap-3">
+      <span class="text-cyan font-mono text-lg">03</span> Works
+    </h2>
+    <p class="text-mute mb-12 ml-9">Applications and systems I've built.</p>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="h-40 bg-panel2 flex items-center justify-center font-mono text-xs text-mute border-b border-line">
+          <img src="src/photos/occasio.PNG" alt="Occasio preview" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-display text-xl font-semibold">Occasio</h3>
+            <p class="text-mute text-xs font-mono mt-1">Capstone Project · Sole Developer</p>
+            <p class="text-mute text-sm mt-2">
+              Mobile event planning app featuring walkable Augmented Reality (AR) venue viewing, an AI-driven recommendation engine, collaborative workspaces, and shareable-link RSVP tracking.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4 font-mono">
+              <span class="text-xs bg-panel2 text-cyan px-2.5 py-1 rounded border border-line">React Native</span>
+              <span class="text-xs bg-panel2 text-cyan px-2.5 py-1 rounded border border-line">Expo</span>
+              <span class="text-xs bg-panel2 text-cyan px-2.5 py-1 rounded border border-line">Firebase</span>
+              <span class="text-xs bg-panel2 text-cyan px-2.5 py-1 rounded border border-line">Cloudinary</span>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-line flex gap-4 text-sm font-mono text-coral">
+            <a href="https://occasio-official.vercel.app/" target="_blank" rel="noopener" class="hover:underline">view_app →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="h-40 bg-panel2 flex items-center justify-center font-mono text-xs text-mute border-b border-line">
+          <img src="src/photos/quaestio.PNG" alt="Quaestio preview" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-display text-xl font-semibold">Quaestio</h3>
+            <p class="text-mute text-xs font-mono mt-1">Capstone Project · PM / System Analyst / Tester / Documentarian</p>
+            <p class="text-mute text-sm mt-2">
+              Reactive cross-platform polling app processing real-time, sentiment-driven comment votes with a serverless backend and secure session management.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4 font-mono">
+              <span class="text-xs bg-panel2 text-cyan px-2.5 py-1 rounded border border-line">React Native</span>
+              <span class="text-xs bg-panel2 text-cyan px-2.5 py-1 rounded border border-line">Expo</span>
+              <span class="text-xs bg-panel2 text-cyan px-2.5 py-1 rounded border border-line">Firebase</span>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-line flex gap-4 text-sm font-mono text-coral">
+            <a href="https://play.google.com/store/apps/details?id=com.quaestio.app.a1b2c3d4" target="_blank" rel="noopener" class="hover:underline">play_store →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="h-40 bg-panel2 flex items-center justify-center font-mono text-xs text-mute border-b border-line">
+          [ freelance_preview.png ]
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-between">
+          <div>
+            <h3 class="font-display text-xl font-semibold">Freelance Websites</h3>
+            <p class="text-mute text-xs font-mono mt-1">Freelance Client Projects</p>
+            <p class="text-mute text-sm mt-2">
+              End-to-end delivery of custom websites, including professional portfolios for independent clients and academic project sites for students.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-4 font-mono">
+              <span class="text-xs bg-panel2 text-cyan px-2.5 py-1 rounded border border-line">HTML5</span>
+              <span class="text-xs bg-panel2 text-cyan px-2.5 py-1 rounded border border-line">CSS3</span>
+              <span class="text-xs bg-panel2 text-cyan px-2.5 py-1 rounded border border-line">Tailwind CSS</span>
+              <span class="text-xs bg-panel2 text-cyan px-2.5 py-1 rounded border border-line">Bootstrap 5</span>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-line flex gap-4 text-sm font-mono text-mute">
+            <span>inquire below ↓</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Experience -->
+<section id="experience" class="py-24 px-6 border-t border-line">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-display text-3xl font-semibold mb-12 flex items-center gap-3">
+      <span class="text-cyan font-mono text-lg">04</span> Experience
+    </h2>
+
+    <div class="frame bg-panel rounded-2xl border border-line p-6 sm:p-8">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+        <h3 class="font-display text-xl font-semibold">Information Technology & Administrative Intern</h3>
+        <span class="font-mono text-xs text-coral">Aug 2025 – Nov 2025</span>
+      </div>
+      <p class="text-mute text-sm mb-6">Department of Education — Schools Division of Sorsogon City, Philippines</p>
+
+      <ul class="space-y-4">
+        <li class="flex gap-3">
+          <span class="timeline-dot"></span>
+          <p class="text-mute text-sm"><span class="text-fg font-medium">Dual-Assignment Support:</span> completed nearly 500 hours of technical and administrative service, supporting both the IT Section and the Office of the Assistant Schools Division Superintendent (ASDS).</p>
+        </li>
+        <li class="flex gap-3">
+          <span class="timeline-dot"></span>
+          <p class="text-mute text-sm"><span class="text-fg font-medium">Secretariat & Executive Support:</span> served as temporary secretary to the ASDS, managing executive schedules, tracking critical files, and routing official correspondence.</p>
+        </li>
+        <li class="flex gap-3">
+          <span class="timeline-dot"></span>
+          <p class="text-mute text-sm"><span class="text-fg font-medium">Financial & Travel Coordination:</span> prepared official travel documents and processed cash advances and reimbursements with the Regional Office.</p>
+        </li>
+        <li class="flex gap-3">
+          <span class="timeline-dot"></span>
+          <p class="text-mute text-sm"><span class="text-fg font-medium">IT & Digital Maintenance:</span> conducted routine hardware maintenance, provided tier-1 technical support, and updated digital content for the DepEd Sorsogon City website.</p>
+        </li>
+        <li class="flex gap-3">
+          <span class="timeline-dot"></span>
+          <p class="text-mute text-sm"><span class="text-fg font-medium">Graphic Design:</span> conceptualized and designed digital and print publication materials for division-wide distribution.</p>
+        </li>
+        <li class="flex gap-3">
+          <span class="timeline-dot"></span>
+          <p class="text-mute text-sm"><span class="text-fg font-medium">Cross-Functional Collaboration:</span> rendered ad-hoc assistance to other division units, ensuring continuous operational support across the agency.</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Achievements -->
+<section id="achievements" class="py-24 px-6 border-t border-line bg-panel/30">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-display text-3xl font-semibold mb-12 flex items-center gap-3">
+      <span class="text-cyan font-mono text-lg">05</span> Achievements
+    </h2>
+
+    <div class="frame bg-panel rounded-2xl border border-line p-6 sm:p-8 mb-8">
+      <span class="corner tl"></span><span class="corner tr"></span>
+      <span class="corner bl"></span><span class="corner br"></span>
+      <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+        <h3 class="font-display text-xl font-semibold">Bachelor of Science in Information Technology</h3>
+        <span class="font-mono text-xs text-coral">June 2026</span>
+      </div>
+      <p class="text-mute text-sm">The Lewis College — Sorsogon City, Philippines</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 gap-6 mb-6">
+      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="h-48 bg-panel2 overflow-hidden">
+          <img src="src/photos/magna.PNG" alt="Magna Cum Laude certificate" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <p class="font-display text-lg font-semibold text-cyan">Magna Cum Laude</p>
+          <p class="text-mute text-sm mt-1">Academic honor, BSIT graduating class</p>
+        </div>
+      </div>
+      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="h-48 bg-panel2 overflow-hidden">
+          <img src="src/photos/intern.PNG" alt="Outstanding IT Intern certificate" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <p class="font-display text-lg font-semibold text-cyan">Outstanding IT Intern</p>
+          <p class="text-mute text-sm mt-1">Major award, DepEd Sorsogon City internship</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="p-6 bg-panel rounded-xl border border-line">
+      <p class="font-display text-lg font-semibold text-cyan">Dean's Lister</p>
+      <p class="text-mute text-sm mt-1">Consecutive honors, 1st Year to 4th Year</p>
+    </div>
+  </div>
+</section>
+
+<!-- Trainings and Conference -->
+<section id="trainings" class="py-24 px-6 border-t border-line">
+  <div class="max-w-6xl mx-auto">
+    <h2 class="font-display text-3xl font-semibold mb-12 flex items-center gap-3">
+      <span class="text-cyan font-mono text-lg">06</span> Trainings and Conference
+    </h2>
+
+    <div class="grid sm:grid-cols-2 gap-6">
+      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="h-48 bg-panel2 overflow-hidden">
+          <img src="src/photos/bitscon1.PNG" alt="Transforming Education in Bicol Region certificate" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <div class="flex flex-wrap items-baseline justify-between gap-2">
+            <h3 class="font-display font-medium text-fg">Transforming Education in Bicol Region: Exploring Emerging Trends Towards ASEAN Connectivity</h3>
+            <span class="font-mono text-xs text-coral">2023</span>
+          </div>
+          <p class="text-mute text-sm mt-1">Sorsogon State University, Sorsogon City</p>
+        </div>
+      </div>
+      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+        <span class="corner tl"></span><span class="corner tr"></span>
+        <span class="corner bl"></span><span class="corner br"></span>
+        <div class="h-48 bg-panel2 overflow-hidden">
+          <img src="src/photos/bitscon2.PNG" alt="Digital Horizons certificate" class="w-full h-full object-cover">
+        </div>
+        <div class="p-6">
+          <div class="flex flex-wrap items-baseline justify-between gap-2">
+            <h3 class="font-display font-medium text-fg">Digital Horizons: Navigating the Future of Technology</h3>
+            <span class="font-mono text-xs text-coral">2024</span>
+          </div>
+          <p class="text-mute text-sm mt-1">Camarines Norte State College, Daet, Camarines Norte</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section id="contact" class="py-24 px-6 border-t border-line bg-panel/30">
+  <div class="max-w-3xl mx-auto text-center">
+    <h2 class="font-display text-3xl font-semibold flex items-center justify-center gap-3">
+      <span class="text-cyan font-mono text-lg">07</span> Get in Touch
+    </h2>
+    <p class="text-mute mt-4">
+      Have a project in mind or want to collaborate? Send a message below.
+    </p>
+    <div class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 font-mono text-sm text-mute">
+      <a href="mailto:rojinashaneecohabana@gmail.com" class="hover:text-cyan transition-colors">rojinashaneecohabana@gmail.com</a>
+      <a href="tel:+639466637361" class="hover:text-cyan transition-colors">0946 663 7361</a>
+      <a href="https://www.linkedin.com/in/rojina-shane-eco-habana-85706641a" target="_blank" rel="noopener" class="hover:text-cyan transition-colors">LinkedIn</a>
+      <a href="https://github.com/rojinashane" target="_blank" rel="noopener" class="hover:text-cyan transition-colors">GitHub</a>
+      <span>Caloocan City, Philippines</span>
+    </div>
+
+    <form class="mt-8 space-y-4 text-left">
+      <div class="grid sm:grid-cols-2 gap-4">
+        <input type="text" placeholder="Name" class="bg-panel border border-line rounded-lg px-4 py-3 text-fg placeholder-mute focus:outline-none focus:border-cyan transition-colors w-full">
+        <input type="email" placeholder="Email" class="bg-panel border border-line rounded-lg px-4 py-3 text-fg placeholder-mute focus:outline-none focus:border-cyan transition-colors w-full">
+      </div>
+      <textarea rows="4" placeholder="Message" class="bg-panel border border-line rounded-lg px-4 py-3 text-fg placeholder-mute focus:outline-none focus:border-cyan transition-colors w-full"></textarea>
+      <button type="submit" class="w-full bg-cyan hover:bg-cyan/85 text-ink font-display font-semibold py-3 rounded-lg transition-all">
+        Send Message
+      </button>
+    </form>
+  </div>
+</section>
+
+<footer class="py-8 border-t border-line text-center text-xs text-mute font-mono">
+  © 2026 Rojina Shane Habana — built with Tailwind CSS
+</footer>
+
+</body>
+</html>
