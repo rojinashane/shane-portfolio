@@ -50,6 +50,8 @@
   .frame:hover .corner.tl, .frame:hover .corner.tr { transform: translateY(-3px); }
   .frame:hover .corner.bl, .frame:hover .corner.br { transform: translateY(3px); }
   .frame:hover .corner { border-color: #FF7A5C; }
+  .frame { transition: transform .35s ease, box-shadow .35s ease; }
+  .frame:hover { transform: translateY(-4px); box-shadow: 0 20px 40px -20px rgba(94,234,212,0.15); }
 
   @keyframes sweep {
     0% { top: 6%; opacity: 0; }
@@ -80,6 +82,82 @@
     width: 10px; height: 10px; border-radius: 50%;
     background: #0A0C10; border: 2px solid #5EEAD4;
     flex-shrink: 0; margin-top: 6px;
+    transition: transform .3s ease, background-color .3s ease;
+  }
+  li:hover .timeline-dot { transform: scale(1.3); background: #5EEAD4; }
+
+  /* ---- Hero cover-scroll effect ---- */
+  #about {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+  }
+  #page-content {
+    position: relative;
+    z-index: 10;
+    background-color: #0A0C10;
+    margin-top: 100vh;
+    border-top-left-radius: 2.5rem;
+    border-top-right-radius: 2.5rem;
+    box-shadow: 0 -50px 100px -20px rgba(0,0,0,0.75);
+  }
+
+  /* ---- Scroll-reveal animations ---- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity .8s cubic-bezier(.21,.6,.24,1), transform .8s cubic-bezier(.21,.6,.24,1);
+    will-change: opacity, transform;
+  }
+  .reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---- Hero entrance animation ---- */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-in {
+    opacity: 0;
+    animation: fadeInUp .8s cubic-bezier(.21,.6,.24,1) forwards;
+  }
+  .hero-in.d0 { animation-delay: .05s; }
+  .hero-in.d1 { animation-delay: .15s; }
+  .hero-in.d2 { animation-delay: .25s; }
+  .hero-in.d3 { animation-delay: .35s; }
+  .hero-in.d4 { animation-delay: .45s; }
+  .hero-in.d5 { animation-delay: .55s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reveal, .hero-in { opacity: 1 !important; transform: none !important; animation: none !important; transition: none !important; }
+  }
+
+  /* ---- Scroll indicator ---- */
+  @keyframes bounceArrow {
+    0%, 100% { transform: translateY(0); opacity: .6; }
+    50% { transform: translateY(8px); opacity: 1; }
+  }
+  .scroll-indicator {
+    position: absolute;
+    left: 50%;
+    bottom: 2rem;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    z-index: 2;
+  }
+  .scroll-indicator .scroll-arrow {
+    animation: bounceArrow 1.6s ease-in-out infinite;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-indicator .scroll-arrow { animation: none; }
   }
 </style>
 </head>
@@ -91,7 +169,7 @@
       <span class="w-8 h-8 rounded-lg bg-panel2 border border-cyan/40 flex items-center justify-center text-cyan font-display font-bold text-sm">S</span>
       <span>Shane<span class="text-cyan">/</span><span class="font-mono text-sm text-mute">dev</span></span>
     </a>
-    <div class="hidden xl:flex items-center gap-8 text-xs font-medium text-mute font-mono tracking-wide">
+    <div class="hidden xl:flex items-center gap-5 text-xs font-medium text-mute font-mono tracking-wide ml-16">
       <a href="#about" class="hover:text-cyan transition-colors whitespace-nowrap">01<span class="text-line mx-1">·</span>about</a>
       <a href="#skills" class="hover:text-cyan transition-colors whitespace-nowrap">02<span class="text-line mx-1">·</span>skills</a>
       <a href="#works" class="hover:text-cyan transition-colors whitespace-nowrap">03<span class="text-line mx-1">·</span>works</a>
@@ -112,36 +190,36 @@
   </div>
 </nav>
 
-<!-- Hero -->
-<section id="about" class="min-h-screen grid-bg flex items-center pt-24 pb-16 px-6">
+<!-- Hero (fixed in place, will be covered by page-content sliding over it on scroll) -->
+<section id="about" class="grid-bg flex items-center pt-24 pb-16 px-6">
   <div class="max-w-6xl mx-auto w-full grid lg:grid-cols-5 gap-12 items-center">
 
     <div class="lg:col-span-3">
-      <div class="flex items-center gap-2 font-mono text-xs text-coral mb-6">
+      <div class="hero-in d0 flex items-center gap-2 font-mono text-xs text-coral mb-6">
         <span class="w-2 h-2 rounded-full bg-coral rec-dot"></span>
         OPEN TO ENTRY-LEVEL IT ROLES
       </div>
-      <h1 class="font-display text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05]">
+      <h1 class="hero-in d1 font-display text-4xl sm:text-6xl font-semibold tracking-tight leading-[1.05]">
         Rojina Shane
         <span class="text-cyan">Habana</span>
       </h1>
-      <p class="mt-2 font-mono text-sm text-mute">BSIT Graduate · Analyst· IT Support</p>
-      <p class="mt-6 text-lg text-mute leading-relaxed max-w-xl">
+      <p class="hero-in d2 mt-2 font-mono text-sm text-mute">BSIT Graduate · Analyst· IT Support</p>
+      <p class="hero-in d2 mt-6 text-lg text-mute leading-relaxed max-w-xl">
         Bachelor of Science in Information Technology graduate with hands-on experience in technical support, hardware and software troubleshooting, network connectivity, computer maintenance, and end-user assistance — gained through an internship with the Department of Education, Schools Division of Sorsogon City. Also experienced in secretariat and administrative support, detail-oriented, adaptable, and committed to reliable, efficient support in an entry-level IT role.
       </p>
-      <div class="mt-8 flex flex-wrap gap-4">
-        <a href="#works" class="bg-cyan text-ink font-display font-semibold px-6 py-3 rounded-lg hover:bg-cyan/85 transition-all">
+      <div class="hero-in d3 mt-8 flex flex-wrap gap-4">
+        <a href="#works" class="bg-cyan text-ink font-display font-semibold px-6 py-3 rounded-lg hover:bg-cyan/85 hover:-translate-y-0.5 transition-all">
           View Works
         </a>
-        <a href="#contact" class="border border-line hover:border-mute text-fg font-medium px-6 py-3 rounded-lg transition-all">
+        <a href="#contact" class="border border-line hover:border-mute text-fg font-medium px-6 py-3 rounded-lg hover:-translate-y-0.5 transition-all">
           Get in Touch
         </a>
-        <a href="src/rojinashaneCVFinal.pdf" download class="inline-flex items-center gap-2 border border-line hover:border-cyan text-fg font-medium px-6 py-3 rounded-lg transition-all">
+        <a href="src/rojinashaneCVFinal.pdf" download class="inline-flex items-center gap-2 border border-line hover:border-cyan text-fg font-medium px-6 py-3 rounded-lg hover:-translate-y-0.5 transition-all">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
           Download CV
         </a>
       </div>
-      <div class="mt-12 flex flex-wrap gap-8 font-mono text-xs text-mute">
+      <div class="hero-in d4 mt-12 flex flex-wrap gap-8 font-mono text-xs text-mute">
         <div><span class="text-fg text-base font-display block">Magna Cum Laude</span>BSIT, 2026</div>
         <div><span class="text-fg text-base font-display block">~500 hrs</span>IT & admin internship</div>
         <div><span class="text-fg text-base font-display block">3</span>shipped projects</div>
@@ -149,7 +227,7 @@
     </div>
 
     <div class="lg:col-span-2 flex justify-center">
-      <div class="frame w-64 h-64 sm:w-72 sm:h-72 rounded-[2rem] border border-line p-3">
+      <div class="hero-in d5 frame w-64 h-64 sm:w-72 sm:h-72 rounded-[2rem] border border-line p-3">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
         <div class="relative w-full h-full bg-panel2 rounded-[1.5rem] overflow-hidden">
@@ -160,17 +238,27 @@
     </div>
 
   </div>
+
+  <a href="#skills" class="hero-in d5 scroll-indicator font-mono text-xs tracking-[0.2em] text-mute hover:text-cyan transition-colors">
+    SCROLL
+    <svg class="scroll-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"></polyline>
+    </svg>
+  </a>
 </section>
+
+<!-- Everything below slides up over the fixed hero as the user scrolls -->
+<div id="page-content">
 
 <!-- Skills -->
 <section id="skills" class="py-24 px-6 border-t border-line">
   <div class="max-w-6xl mx-auto">
-    <h2 class="font-display text-3xl font-semibold mb-12 flex items-center gap-3">
+    <h2 class="reveal font-display text-3xl font-semibold mb-12 flex items-center gap-3">
       <span class="text-cyan font-mono text-lg">02</span> Skills
     </h2>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="p-6 bg-panel rounded-xl border border-line">
+      <div class="reveal p-6 bg-panel rounded-xl border border-line hover:border-cyan/40 hover:-translate-y-1 transition-all" style="transition-delay:.05s">
         <h3 class="font-display font-medium text-cyan mb-4 font-mono text-sm tracking-wide">WEB DEVELOPMENT</h3>
         <ul class="space-y-2 text-mute text-sm">
           <li>HTML5 & CSS3</li>
@@ -178,21 +266,21 @@
           <li>Tailwind CSS</li>
         </ul>
       </div>
-      <div class="p-6 bg-panel rounded-xl border border-line">
+      <div class="reveal p-6 bg-panel rounded-xl border border-line hover:border-cyan/40 hover:-translate-y-1 transition-all" style="transition-delay:.1s">
         <h3 class="font-display font-medium text-cyan mb-4 font-mono text-sm tracking-wide">MOBILE DEVELOPMENT</h3>
         <ul class="space-y-2 text-mute text-sm">
           <li>React Native</li>
           <li>Expo</li>
         </ul>
       </div>
-      <div class="p-6 bg-panel rounded-xl border border-line">
+      <div class="reveal p-6 bg-panel rounded-xl border border-line hover:border-cyan/40 hover:-translate-y-1 transition-all" style="transition-delay:.15s">
         <h3 class="font-display font-medium text-cyan mb-4 font-mono text-sm tracking-wide">BACKEND & DATABASES</h3>
         <ul class="space-y-2 text-mute text-sm">
           <li>Firebase (Auth & Firestore)</li>
           <li>MySQL</li>
         </ul>
       </div>
-      <div class="p-6 bg-panel rounded-xl border border-line">
+      <div class="reveal p-6 bg-panel rounded-xl border border-line hover:border-cyan/40 hover:-translate-y-1 transition-all" style="transition-delay:.2s">
         <h3 class="font-display font-medium text-cyan mb-4 font-mono text-sm tracking-wide">TOOLS & PLATFORMS</h3>
         <ul class="space-y-2 text-mute text-sm">
           <li>VS Code & Git/GitHub</li>
@@ -200,7 +288,7 @@
           <li>Canva & Vercel</li>
         </ul>
       </div>
-      <div class="p-6 bg-panel rounded-xl border border-line">
+      <div class="reveal p-6 bg-panel rounded-xl border border-line hover:border-cyan/40 hover:-translate-y-1 transition-all" style="transition-delay:.25s">
         <h3 class="font-display font-medium text-cyan mb-4 font-mono text-sm tracking-wide">ADDITIONAL SKILLS</h3>
         <ul class="space-y-2 text-mute text-sm">
           <li>IT Support & Troubleshooting</li>
@@ -215,18 +303,18 @@
 <!-- Works -->
 <section id="works" class="py-24 px-6 border-t border-line bg-panel/30">
   <div class="max-w-6xl mx-auto">
-    <h2 class="font-display text-3xl font-semibold mb-2 flex items-center gap-3">
+    <h2 class="reveal font-display text-3xl font-semibold mb-2 flex items-center gap-3">
       <span class="text-cyan font-mono text-lg">03</span> Works
     </h2>
-    <p class="text-mute mb-12 ml-9">Applications and systems I've built.</p>
+    <p class="reveal text-mute mb-12 ml-9">Applications and systems I've built.</p>
 
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+      <div class="reveal frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col" style="transition-delay:.05s">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
-        <div class="h-40 bg-panel2 flex items-center justify-center font-mono text-xs text-mute border-b border-line">
-          <img src="src/photos/occasio.PNG" alt="Occasio preview" class="w-full h-full object-cover">
+        <div class="h-40 bg-panel2 flex items-center justify-center font-mono text-xs text-mute border-b border-line overflow-hidden">
+          <img src="src/photos/occasio.PNG" alt="Occasio preview" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
         </div>
         <div class="p-6 flex-1 flex flex-col justify-between">
           <div>
@@ -248,11 +336,11 @@
         </div>
       </div>
 
-      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+      <div class="reveal frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col" style="transition-delay:.15s">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
-        <div class="h-40 bg-panel2 flex items-center justify-center font-mono text-xs text-mute border-b border-line">
-          <img src="src/photos/quaestio.PNG" alt="Quaestio preview" class="w-full h-full object-cover">
+        <div class="h-40 bg-panel2 flex items-center justify-center font-mono text-xs text-mute border-b border-line overflow-hidden">
+          <img src="src/photos/quaestio.PNG" alt="Quaestio preview" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
         </div>
         <div class="p-6 flex-1 flex flex-col justify-between">
           <div>
@@ -273,7 +361,7 @@
         </div>
       </div>
 
-      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+      <div class="reveal frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col" style="transition-delay:.25s">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
         <div class="h-40 bg-panel2 flex items-center justify-center font-mono text-xs text-mute border-b border-line">
@@ -306,11 +394,11 @@
 <!-- Experience -->
 <section id="experience" class="py-24 px-6 border-t border-line">
   <div class="max-w-6xl mx-auto">
-    <h2 class="font-display text-3xl font-semibold mb-12 flex items-center gap-3">
+    <h2 class="reveal font-display text-3xl font-semibold mb-12 flex items-center gap-3">
       <span class="text-cyan font-mono text-lg">04</span> Experience
     </h2>
 
-    <div class="frame bg-panel rounded-2xl border border-line p-6 sm:p-8">
+    <div class="reveal frame bg-panel rounded-2xl border border-line p-6 sm:p-8">
       <span class="corner tl"></span><span class="corner tr"></span>
       <span class="corner bl"></span><span class="corner br"></span>
       <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
@@ -352,11 +440,11 @@
 <!-- Achievements -->
 <section id="achievements" class="py-24 px-6 border-t border-line bg-panel/30">
   <div class="max-w-6xl mx-auto">
-    <h2 class="font-display text-3xl font-semibold mb-12 flex items-center gap-3">
+    <h2 class="reveal font-display text-3xl font-semibold mb-12 flex items-center gap-3">
       <span class="text-cyan font-mono text-lg">05</span> Achievements
     </h2>
 
-    <div class="frame bg-panel rounded-2xl border border-line p-6 sm:p-8 mb-8">
+    <div class="reveal frame bg-panel rounded-2xl border border-line p-6 sm:p-8 mb-8">
       <span class="corner tl"></span><span class="corner tr"></span>
       <span class="corner bl"></span><span class="corner br"></span>
       <div class="flex flex-wrap items-baseline justify-between gap-2 mb-1">
@@ -367,40 +455,40 @@
     </div>
 
     <div class="grid sm:grid-cols-2 gap-6 mb-6">
-      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+      <div class="reveal frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col" style="transition-delay:.05s">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
         <div class="h-48 bg-panel2 overflow-hidden">
-          <img src="src/photos/magna.PNG" alt="Magna Cum Laude certificate" class="w-full h-full object-cover">
+          <img src="src/photos/magna.PNG" alt="Magna Cum Laude certificate" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
         </div>
         <div class="p-6">
           <p class="font-display text-lg font-semibold text-cyan">Magna Cum Laude</p>
           <p class="text-mute text-sm mt-1">Academic honor, BSIT graduating class</p>
         </div>
       </div>
-      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+      <div class="reveal frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col" style="transition-delay:.1s">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
         <div class="h-48 bg-panel2 overflow-hidden">
-          <img src="src/photos/intern.PNG" alt="Outstanding IT Intern certificate" class="w-full h-full object-cover">
+          <img src="src/photos/intern.PNG" alt="Outstanding IT Intern certificate" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
         </div>
         <div class="p-6">
           <p class="font-display text-lg font-semibold text-cyan">Outstanding IT Intern</p>
           <p class="text-mute text-sm mt-1">Major award, DepEd Sorsogon City internship</p>
         </div>
       </div>
-      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+      <div class="reveal frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col" style="transition-delay:.15s">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
-        <div class="h-48 bg-panel2 flex items-center justify-center font-mono text-xs text-mute">
-          <img src="src/photos/ojt.PNG" alt="Outstanding IT Intern certificate" class="w-full h-full object-cover">
+        <div class="h-48 bg-panel2 flex items-center justify-center font-mono text-xs text-mute overflow-hidden">
+          <img src="src/photos/ojt.PNG" alt="Outstanding IT Intern certificate" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
         </div>
         <div class="p-6">
           <p class="font-display text-lg font-semibold text-cyan">Internship Certificate</p>
           <p class="text-mute text-sm mt-1">Certificate of Completion, DepEd Sorsogon City internship</p>
         </div>
       </div>
-        <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+        <div class="reveal frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col" style="transition-delay:.2s">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
         <div class="h-48 bg-panel2 flex items-center justify-center font-mono text-xs text-mute">
@@ -418,16 +506,16 @@
 <!-- Trainings and Conference -->
 <section id="trainings" class="py-24 px-6 border-t border-line">
   <div class="max-w-6xl mx-auto">
-    <h2 class="font-display text-3xl font-semibold mb-12 flex items-center gap-3">
+    <h2 class="reveal font-display text-3xl font-semibold mb-12 flex items-center gap-3">
       <span class="text-cyan font-mono text-lg">06</span> Trainings and Conference
     </h2>
 
     <div class="grid sm:grid-cols-2 gap-6">
-      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+      <div class="reveal frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col" style="transition-delay:.05s">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
         <div class="h-48 bg-panel2 overflow-hidden">
-          <img src="src/photos/bitscon1.PNG" alt="Transforming Education in Bicol Region certificate" class="w-full h-full object-cover">
+          <img src="src/photos/bitscon1.PNG" alt="Transforming Education in Bicol Region certificate" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
         </div>
         <div class="p-6">
           <div class="flex flex-wrap items-baseline justify-between gap-2">
@@ -437,11 +525,11 @@
           <p class="text-mute text-sm mt-1">Sorsogon State University, Sorsogon City</p>
         </div>
       </div>
-      <div class="frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col">
+      <div class="reveal frame bg-panel rounded-2xl border border-line overflow-hidden flex flex-col" style="transition-delay:.15s">
         <span class="corner tl"></span><span class="corner tr"></span>
         <span class="corner bl"></span><span class="corner br"></span>
         <div class="h-48 bg-panel2 overflow-hidden">
-          <img src="src/photos/bitscon2.PNG" alt="Digital Horizons certificate" class="w-full h-full object-cover">
+          <img src="src/photos/bitscon2.PNG" alt="Digital Horizons certificate" class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
         </div>
         <div class="p-6">
           <div class="flex flex-wrap items-baseline justify-between gap-2">
@@ -458,26 +546,26 @@
 <!-- Contact -->
 <section id="contact" class="py-24 px-6 border-t border-line bg-panel/30">
   <div class="max-w-3xl mx-auto text-center">
-    <h2 class="font-display text-3xl font-semibold flex items-center justify-center gap-3">
+    <h2 class="reveal font-display text-3xl font-semibold flex items-center justify-center gap-3">
       <span class="text-cyan font-mono text-lg">07</span> Get in Touch
     </h2>
-    <p class="text-mute mt-4">
+    <p class="reveal text-mute mt-4">
       Have a project in mind or want to collaborate? Send a message below.
     </p>
-    <div class="mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 font-mono text-sm text-mute">
+    <div class="reveal mt-6 flex flex-wrap justify-center gap-x-6 gap-y-2 font-mono text-sm text-mute">
       <a href="mailto:rojinashaneecohabana@gmail.com" class="hover:text-cyan transition-colors">rojinashaneecohabana@gmail.com</a>
       <a href="tel:+639466637361" class="hover:text-cyan transition-colors">0946 663 7361</a>
       <a href="https://www.linkedin.com/in/rojina-shane-eco-habana-85706641a" target="_blank" rel="noopener" class="hover:text-cyan transition-colors">LinkedIn</a>
       <span>Caloocan City, Philippines</span>
     </div>
 
-    <form class="mt-8 space-y-4 text-left">
+    <form class="reveal mt-8 space-y-4 text-left">
       <div class="grid sm:grid-cols-2 gap-4">
-        <input type="text" placeholder="Name" class="bg-panel border border-line rounded-lg px-4 py-3 text-fg placeholder-mute focus:outline-none focus:border-cyan transition-colors w-full">
-        <input type="email" placeholder="Email" class="bg-panel border border-line rounded-lg px-4 py-3 text-fg placeholder-mute focus:outline-none focus:border-cyan transition-colors w-full">
+        <input type="text" placeholder="Name" class="bg-panel border border-line rounded-lg px-4 py-3 text-fg placeholder-mute focus:outline-none focus:border-cyan focus:ring-1 focus:ring-cyan/30 transition-all w-full">
+        <input type="email" placeholder="Email" class="bg-panel border border-line rounded-lg px-4 py-3 text-fg placeholder-mute focus:outline-none focus:border-cyan focus:ring-1 focus:ring-cyan/30 transition-all w-full">
       </div>
-      <textarea rows="4" placeholder="Message" class="bg-panel border border-line rounded-lg px-4 py-3 text-fg placeholder-mute focus:outline-none focus:border-cyan transition-colors w-full"></textarea>
-      <button type="submit" class="w-full bg-cyan hover:bg-cyan/85 text-ink font-display font-semibold py-3 rounded-lg transition-all">
+      <textarea rows="4" placeholder="Message" class="bg-panel border border-line rounded-lg px-4 py-3 text-fg placeholder-mute focus:outline-none focus:border-cyan focus:ring-1 focus:ring-cyan/30 transition-all w-full"></textarea>
+      <button type="submit" class="w-full bg-cyan hover:bg-cyan/85 text-ink font-display font-semibold py-3 rounded-lg hover:-translate-y-0.5 transition-all">
         Send Message
       </button>
     </form>
@@ -487,6 +575,47 @@
 <footer class="py-8 border-t border-line text-center text-xs text-mute font-mono">
   © 2026 Rojina Shane Habana — built with Tailwind CSS
 </footer>
+
+</div><!-- /#page-content -->
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
+
+    revealEls.forEach((el) => observer.observe(el));
+
+    // Active nav pill follows the section currently in view
+    const navLinks = document.querySelectorAll('#nav-links a[data-nav]');
+    const sections = Array.from(navLinks)
+      .map((link) => document.getElementById(link.dataset.nav))
+      .filter(Boolean);
+
+    const setActive = (id) => {
+      navLinks.forEach((link) => {
+        const isActive = link.dataset.nav === id;
+        link.classList.toggle('bg-panel2', isActive);
+        link.classList.toggle('text-fg', isActive);
+        link.classList.toggle('text-mute', !isActive);
+      });
+    };
+
+    const navObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) setActive(entry.target.id);
+      });
+    }, { threshold: 0.4, rootMargin: '-80px 0px -40% 0px' });
+
+    sections.forEach((section) => navObserver.observe(section));
+  });
+</script>
 
 </body>
 </html>
